@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TwentyOne.Data.Card
 {
-    [CreateAssetMenu(fileName = "Card", menuName = "TwentyOne/Card", order = 0)]
+    [CreateAssetMenu(fileName = "Card", menuName = "TwentyOne/Card", order = 1)]
     public class Card : ScriptableObject
     {
         [SerializeField] private GameObject _basicPrefab;

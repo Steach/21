@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e3e7163ec41c9c469de64c6135f1432, type: 3}
+  m_Name: BlackDeck
+  m_EditorClassIdentifier: 
+  _decksCount: 1
+  _deckData:
+  - count: 3
+    card: {fileID: 11400000, guid: c7f2afc406d88bb4f9ca1aa41a32151a, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: e1139d8c5f5f3994885d1e40b7fdbe28, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 0bc62a6ba59145d428df24d7731ea566, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 814ba419d8fa1524eaf72a0b01a0142f, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 44afc4a7d96d0084fb4bd040dca4c14d, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 64e6059f17cd54840baa1c65d742c678, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 0088eb1e8df175d48b85bf4efd9c3663, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 4f13af37cad66f743babedb849d881f9, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: d42f89153ae755f4e8c1f23a8b3d9565, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: c7a1f615f39894e49ba8707424599e17, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 09652bf7e453ce24c81f1a1637c72ec8, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 1b43622a90d9c9244a11dd35cbde0ec0, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 5339cb4a118d59d43908eff3431c0f25, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: dd9ad03e9a15df740a86e7d30daaead7, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 461e6b66df438a145b9246b936ad3f09, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 8a694c0238ee7a14b882658ec819f14f, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 9bf38293db9bdc04e82b6a80ba3a1201, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 839ba2fdc59880342939da9a4eec393b, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 99093095391884a43832d84eff55405a, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 8e9d9b8e3c05e114c8cc9c394c488e34, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 80da2e740b9306e44b2b31edfa9fe5f1, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 61ac7db69bc93a74c88330e3014f9f15, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 8eaf3408b01a8044cbeedaf0c198669b, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: a15a00beb37b17546ba23a373277fd5e, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 1d508c2d4e6a3a34087783c9a8dec20c, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 9a37ad6ed18bfd243b8b18b01b2f58d4, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: cbb31fedb847cd54cae65465fcd39aec, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 96b2a67d21b9c7a4c9fabd97beae5418, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 3e3236f5b07d13043969a6423b8d6557, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: a4702e445f707ce4c84b582d93249a44, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 1b06f387967518848a2c490a35acf1cd, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 1c1025b1a0a45fd4e92aabfd2c8bc6ea, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: f090a8a435086fe4596a527fd2fe8224, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 1b6d95a527520cc47a2010ad2f239292, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: ccf139356f6daa94f867419ae82ff46f, type: 2}
+  - count: 3
+    card: {fileID: 11400000, guid: 578ea4e0b932440448b951b3f7574e34, type: 2}
+  _cards: []

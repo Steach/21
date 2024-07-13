@@ -3,10 +3,20 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Card[] cards;
+    [SerializeField] private Deck _deck;
 
     private void Awake()
     {
-        Debug.Log(cards[Random.Range(0, cards.Length)].Init());
+        _deck.Init();
+    }
+
+    public int GetCard()
+    {
+        return _deck.GetCard();
+    }
+
+    private void OnDestroy()
+    {
+        _deck.ClearDesk();
     }
 }
