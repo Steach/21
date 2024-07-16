@@ -152,10 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5205eb6ac992b044492af0eafe412831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: Player
   _score: 0
-  _spawner: {fileID: 1674031663}
-  _starterCardsCount: 3
+  _croupier: {fileID: 1674031663}
+  _starterCardsCount: 2
   _scoreText: {fileID: 1818812748}
+  _isBot: 0
+  _bot: {fileID: 0}
+  _currentPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &57594918
 Transform:
   m_ObjectHideFlags: 0
@@ -420,7 +424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 742782850}
-  - component: {fileID: 742782849}
+  - component: {fileID: 742782851}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -428,22 +432,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &742782849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742782848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6625b2743e4d2e34db48bd848377a476, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _score: 0
-  _spawner: {fileID: 1674031663}
-  _starterCardsCount: 3
-  _scoreText: {fileID: 1858041393}
 --- !u!4 &742782850
 Transform:
   m_ObjectHideFlags: 0
@@ -456,9 +444,30 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1264446186}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &742782851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742782848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5205eb6ac992b044492af0eafe412831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Bot
+  _score: 0
+  _croupier: {fileID: 1674031663}
+  _starterCardsCount: 2
+  _scoreText: {fileID: 0}
+  _isBot: 1
+  _bot: {fileID: 1264446185}
+  _currentPosition: {x: 0, y: 20, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +554,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 10, y: 10, z: -80}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -723,6 +732,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1264446184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264446186}
+  - component: {fileID: 1264446185}
+  m_Layer: 0
+  m_Name: BotAI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1264446185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264446184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6625b2743e4d2e34db48bd848377a476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 742782851}
+--- !u!4 &1264446186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264446184}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 742782850}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1674031661
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +788,7 @@ GameObject:
   - component: {fileID: 1674031662}
   - component: {fileID: 1674031663}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: Croupier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -768,6 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deck: {fileID: 11400000, guid: 26a00f85a1e91ac47a08cc3510a8d7a2, type: 2}
+  _positionOffset: {x: 3, y: 0, z: 0.1}
 --- !u!1 &1818812746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,7 +1232,7 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 1674031662}
-  - {fileID: 1237422021}
   - {fileID: 1045710772}
   - {fileID: 742782850}
   - {fileID: 57594918}
+  - {fileID: 1237422021}

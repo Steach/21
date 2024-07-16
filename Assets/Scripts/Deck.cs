@@ -26,14 +26,14 @@ namespace TwentyOne.Data.Card
             }   
         }
 
-        public int GetCard()
+        public int GetCard(Vector3 position, bool isBot)
         {
-            var index = Random.Range(0, _cards.Count);
+            var index = Random.Range(0, _cards.Count - 1);
 
             if (_cards.Count > 0)
             {
                 _cards.RemoveAt(index);
-                return _cards[index].Init();
+                return _cards[index].Init(position, isBot);
             }
             else
             {

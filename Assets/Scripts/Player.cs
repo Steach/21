@@ -3,19 +3,58 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private string _name;
     [SerializeField] private int _score;
-    [SerializeField] private Spawner _spawner;
+    [SerializeField] private Croupier _croupier;
     [SerializeField] private int _starterCardsCount;
     [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private bool _isBot;
+    [SerializeField] private Bot _bot;
+    [SerializeField] private Vector3 _currentPosition;
+
+
+    private int _cardCountOnHands = 0;
+    private bool _waitACard = false;
+    private bool _isPassed = false;
+
+
+    public int Score { get { return _score; } }
+    public Vector3 Position { get { return _currentPosition; } set { _currentPosition = value; } }
+    public bool IsBot { get { return _isBot; } }
+
 
     private void Start()
     {
-        Debug.Log("Player Start Game");
         _score = 0;
         for (int i = 0; i < _starterCardsCount; i++)
         {
-            _score += _spawner.GetCard();
-            _scoreText.text = "Player: " + _score.ToString();
+            _croupier.GetCard(gameObject);
+        }
+    }
+
+    public void SetScore(int addscore)
+    {
+        _score += addscore;
+        _cardCountOnHands++;
+        _waitACard = false;
+        Debug.Log($"{_name}: {_score}");
+    }
+
+    public void GetMoreCard()
+    {
+        if (_cardCountOnHands >= _starterCardsCount && _isBot && !_waitACard)
+        {
+            _croupier.GetCard(gameObject);
+            _waitACard = true;
+        }    
+    }
+
+    public void PlayerIsPassed()
+    {
+        if (!_isPassed)
+        {
+            Debug.Log($"{_name} is passed.");
+            _isPassed = true;
         }
     }
 }

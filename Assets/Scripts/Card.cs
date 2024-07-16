@@ -9,10 +9,16 @@ namespace TwentyOne.Data.Card
         [SerializeField] private Sprite _sprite;
         [SerializeField] private int _weight;
 
-        public int Init()
+        public int Init(Vector3 position, bool isBot)
         {
-            var position = new Vector3 (0, 0, 0);
-            var IntantiatedCard = Instantiate(_basicPrefab, position, Quaternion.identity);
+            var rotation = Quaternion.identity;
+
+            if (isBot)
+            {
+                rotation = new Quaternion(rotation.x, rotation.y + 180, rotation.z, rotation.w);
+            }
+
+            var IntantiatedCard = Instantiate(_basicPrefab, position, rotation);
 
             IntantiatedCard.GetComponent<SpriteRenderer>().sprite = _sprite;
 
