@@ -1,12 +1,16 @@
 using TMPro;
 using UnityEngine;
+using TwentyOne.FSM;
+using TwentyOne.Managers;
+
 
 public class Player : MonoBehaviour
 {
+    public int NumberInGame;
+
     [SerializeField] private string _name;
     [SerializeField] private int _score;
     [SerializeField] private Croupier _croupier;
-    [SerializeField] private int _starterCardsCount;
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private bool _isBot;
     [SerializeField] private Bot _bot;
@@ -26,10 +30,10 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _score = 0;
-        for (int i = 0; i < _starterCardsCount; i++)
-        {
-            _croupier.GetCard(gameObject);
-        }
+        //for (int i = 0; i < _starterCardsCount; i++)
+        //{
+        //    _croupier.GetCard(gameObject);
+        //}
     }
 
     public void SetScore(int addscore)
@@ -42,7 +46,7 @@ public class Player : MonoBehaviour
 
     public void GetMoreCard()
     {
-        if (_cardCountOnHands >= _starterCardsCount && _isBot && !_waitACard)
+        if (_cardCountOnHands >= GameManager.Instance.StarterCardsCount && _isBot && !_waitACard)
         {
             _croupier.GetCard(gameObject);
             _waitACard = true;
@@ -56,5 +60,10 @@ public class Player : MonoBehaviour
             Debug.Log($"{_name} is passed.");
             _isPassed = true;
         }
+    }
+
+    public void GetStartedCards()
+    {
+        _croupier.GetCard(gameObject);
     }
 }

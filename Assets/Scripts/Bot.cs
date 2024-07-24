@@ -1,14 +1,45 @@
+using TMPro;
 using UnityEngine;
 
-public class Bot : MonoBehaviour
+namespace TwentyOne.FSM
 {
-    [SerializeField] private Player player;
-
-    private void Update()
+    public class Bot : MonoBehaviour
     {
-        if (player.Score < 18)
+        public StateMachine FSM;
+        public WaitState WaitState;
+        public GetCardOrPassState GetCardOrPassedState;
+
+        [SerializeField] private Player player;
+        [SerializeField] private TextMeshProUGUI _debug;
+
+        private void Start()
+        {
+            FSM = new StateMachine();
+
+            WaitState = new WaitState(FSM, this);
+            GetCardOrPassedState = new GetCardOrPassState(FSM, this);
+
+            FSM.Init(WaitState, _debug);
+        }
+
+        private void Update()
+        {
+            FSM.CurrentState.LogicUpdate();
+        }
+
+        public int GetScore()
+        {
+            return player.Score;
+        }
+
+        public void GetCard()
+        {
             player.GetMoreCard();
-        else
+        }
+
+        public void Passed()
+        {
             player.PlayerIsPassed();
+        }
     }
 }

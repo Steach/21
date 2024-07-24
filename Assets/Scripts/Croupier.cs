@@ -12,7 +12,6 @@ public class Croupier : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log(_players.Count);
         _deck.Init();
     }
 
@@ -28,18 +27,13 @@ public class Croupier : MonoBehaviour
             var PlayerComponent = player.GetComponent<Player>();
             PlayerComponent.SetScore(_deck.GetCard(PlayerComponent.Position, PlayerComponent.IsBot));
             ChangeCurrentPositionAtPlayerCards(PlayerComponent.Position, _positionOffset, PlayerComponent);
-        }
-            
+        }   
     }
 
     public void GetCard(GameObject player)
     {
         _timer = _timerDelay;
         _players.Enqueue(player);
-        foreach (var p in _players) 
-        { 
-            Debug.Log(p);
-        }
     }
 
     private void OnDestroy()
