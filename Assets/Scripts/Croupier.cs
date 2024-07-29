@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TwentyOne.Data.Card;
+using TwentyOne.Managers;
 using UnityEngine;
 
 public class Croupier : MonoBehaviour
