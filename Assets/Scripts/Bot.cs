@@ -12,6 +12,11 @@ namespace TwentyOne.FSM
         [SerializeField] private Player player;
         [SerializeField] private TextMeshProUGUI _debug;
 
+        private void Awake()
+        {
+            Croupier.NextStep += GetCardOrPassed;
+        }
+
         private void Start()
         {
             FSM = new StateMachine();
@@ -25,6 +30,11 @@ namespace TwentyOne.FSM
         private void Update()
         {
             FSM.CurrentState.LogicUpdate();
+        }
+
+        private void GetCardOrPassed()
+        {
+            FSM.ChangeState(GetCardOrPassedState);
         }
 
         public int GetScore()

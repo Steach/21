@@ -5,10 +5,15 @@ using UnityEngine;
 public class Croupier : MonoBehaviour
 {
     [SerializeField] private Deck _deck;
-    [SerializeField] private Queue<GameObject> _players = new Queue<GameObject>();
+    [SerializeField] private Queue<GameObject> _playersQueue = new Queue<GameObject>();
     [SerializeField] private Vector3 _positionOffset;
+    [SerializeField] private Player[] _players;
+    public Player[] Players { get { return _players; } }
     private float _timer = 0;
     private int _timerDelay = 2;
+
+    public static System.Action NextStep;
+    private bool _anEventHappens = true;
 
     private void Awake()
     {
@@ -17,29 +22,39 @@ public class Croupier : MonoBehaviour
 
     private void Update()
     {
+        if (_playersQueue.Count == 0 && !_anEventHappens)
+        {
+            NextStep.Invoke();
+            _anEventHappens = true;
+        }
+        else if (_playersQueue.Count >= 1 && _anEventHappens)
+        {
+            _anEventHappens = false;
+        }
+
         if (_timer > 0)
             _timer -= Time.deltaTime;
 
-        if (_timer <= 0 && _players.Count > 0)
+        if (_timer <= 0 && _playersQueue.Count > 0)
         {
             _timer = _timerDelay;
-            var player = _players.Dequeue();
+            var player = _playersQueue.Dequeue();
             var PlayerComponent = player.GetComponent<Player>();
             PlayerComponent.SetScore(_deck.GetCard(PlayerComponent.Position, PlayerComponent.IsBot));
             ChangeCurrentPositionAtPlayerCards(PlayerComponent.Position, _positionOffset, PlayerComponent);
-        }   
+        }
     }
 
     public void GetCard(GameObject player)
     {
         _timer = _timerDelay;
-        _players.Enqueue(player);
+        _playersQueue.Enqueue(player);
     }
 
     private void OnDestroy()
     {
         _deck.ClearDesk();
-        _players.Clear();
+        _playersQueue.Clear();
     }
 
     private void ChangeCurrentPositionAtPlayerCards(Vector3 current, Vector3 offset, Player player)

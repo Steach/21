@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,8 +9,10 @@ namespace TwentyOne.Managers
         public static GameManager Instance;
 
         [SerializeField] private int _playersCounts;
-        [SerializeField] private Player[] _players;
+        [SerializeField] private List<Player> _players = new List<Player>();
         [SerializeField] private int _starterCardsCount;
+
+        public List<Player> Players { get { return Instance._players; } }
 
         public int StarterCardsCount { get { return _starterCardsCount; } }
 
@@ -29,7 +32,7 @@ namespace TwentyOne.Managers
 
         private void GetStartedCards()
         {
-            foreach (var p in _players)
+            foreach (var p in Instance._players)
             {
                 for (int i = 0; i < _starterCardsCount; i++)
                 {
@@ -38,11 +41,11 @@ namespace TwentyOne.Managers
             }
         }
 
-        private void Shuffle(Player[] array)
+        private void Shuffle(List<Player> array)
         {
-            for (int i = array.Length - 1; i > 0; i--)
+            for (int i = array.Count - 1; i > 0; i--)
             {
-                int j = Random.Range(0, array.Length);
+                int j = Random.Range(0, array.Count);
                 var temp = array[i];
                 array[i] = array[j];
                 array[j] = temp;
@@ -54,23 +57,23 @@ namespace TwentyOne.Managers
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log($"Scene: {scene.name}");
             SceneManager.sceneLoaded -= OnSceneLoaded;
 
-            if (_players[0].TryGetComponent<Player>(out Player player))
+            if (Instance._players[0] != null)
             {
-                Shuffle(_players);
+                Shuffle(Instance._players);
                 GetStartedCards();
             }
             else
             {
-                Debug.Log($"PLAYERS IS NULL");
-                _players = new Player[_playersCounts];
-                for (int i = 0; i < _playersCounts; i++)
+                var tmpPlayers = FindAnyObjectByType<Croupier>().Players;
+
+                for (int i = 0; i < tmpPlayers.Length; i++)
                 {
-                    _players[i] = FindAnyObjectByType<Player>();
+                    Instance._players[i] = tmpPlayers[i];
                 }
-                Shuffle(_players);
+
+                Shuffle(Instance._players);
                 GetStartedCards();
             }
         }

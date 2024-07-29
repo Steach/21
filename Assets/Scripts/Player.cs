@@ -27,13 +27,10 @@ public class Player : MonoBehaviour
     public bool IsBot { get { return _isBot; } }
 
 
+
     private void Start()
     {
         _score = 0;
-        //for (int i = 0; i < _starterCardsCount; i++)
-        //{
-        //    _croupier.GetCard(gameObject);
-        //}
     }
 
     public void SetScore(int addscore)
@@ -46,11 +43,11 @@ public class Player : MonoBehaviour
 
     public void GetMoreCard()
     {
-        if (_cardCountOnHands >= GameManager.Instance.StarterCardsCount && _isBot && !_waitACard)
+        if (_cardCountOnHands >= GameManager.Instance.StarterCardsCount && !_waitACard)
         {
             _croupier.GetCard(gameObject);
             _waitACard = true;
-        }    
+        }  
     }
 
     public void PlayerIsPassed()

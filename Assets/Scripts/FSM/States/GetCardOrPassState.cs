@@ -13,12 +13,12 @@ namespace TwentyOne.FSM
             else
                 Bot.Passed();
 
-            Exit();
+            FSM.ChangeState(Bot.WaitState);
         }
 
         public override void Exit() 
         {
-            FSM.ChangeState(Bot.WaitState);
+            base.Exit();
         }
     }
 }
