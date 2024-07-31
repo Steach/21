@@ -19,9 +19,13 @@ namespace TwentyOne.Develop
 
         public bool DealerWait = true;
         public Vector3 Position { get { return _position; } set { _position = value; } }
+        public System.Action<GameOverInformation> GameOverEvent;
 
+        private GameOverInformation _gameOverInformation;
         private bool _pass = false;
         private int _score = 0;
+
+        public bool Pass { get { return _pass; } }
 
         private void Start()
         {
@@ -33,6 +37,10 @@ namespace TwentyOne.Develop
 
         private void Update()
         {
+            if (_score >= 21)
+                GameOver();
+
+
             if(DealerWait && _pass)
             {
                 _dealer.ChangeCounter(1);
@@ -50,10 +58,16 @@ namespace TwentyOne.Develop
         {
             if (DealerWait)
             {
+                _dealer.ChangeCounter(1);
+                DealerWait = false;
+            }
+
+            if (!_pass)
+            {
                 Debug.Log("Passed");
                 _pass = true;
                 DealerWait = false;
-                _dealer.ChangeCounter(1);
+                GameOver();
             }
         }
 
@@ -69,6 +83,21 @@ namespace TwentyOne.Develop
 
             if (_pass)
                 PassAction();
+        }
+
+        private void GameOver()
+        {
+            _pass = true;
+            _gameOverInformation.Name = gameObject.name;
+            _gameOverInformation.Score = _score;
+            GameOverEvent?.Invoke(_gameOverInformation);
+        }
+
+        [System.Serializable]
+        public struct GameOverInformation
+        {
+            public string Name;
+            public int Score;
         }
     }
 }
