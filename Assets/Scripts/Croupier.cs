@@ -41,7 +41,7 @@ public class Croupier : MonoBehaviour
             _timer = _timerDelay;
             var player = _playersQueue.Dequeue();
             var PlayerComponent = player.GetComponent<Player>();
-            PlayerComponent.SetScore(_deck.GetCard(PlayerComponent.Position, PlayerComponent.IsBot));
+            //PlayerComponent.SetScore(_deck.GetCard(PlayerComponent.Position, PlayerComponent.IsBot));
             ChangeCurrentPositionAtPlayerCards(PlayerComponent.Position, _positionOffset, PlayerComponent);
         }
     }

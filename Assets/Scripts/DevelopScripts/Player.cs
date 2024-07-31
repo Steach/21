@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using TwentyOne.Data.Card;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +14,7 @@ namespace TwentyOne.Develop
         [Header("GameSettings")]
         [SerializeField] private Dealer _dealer;
         [SerializeField] private Vector3 _position;
+        [SerializeField] private List<Card.CardInformation> _cards = new List<Card.CardInformation>();
         [Space]
         [Header("Bot Settings (optional)")]
         [SerializeField] private BotAI _botAI;
@@ -37,7 +40,7 @@ namespace TwentyOne.Develop
 
         private void Update()
         {
-            if (_score >= 21)
+            if (_score >= 21 && !_pass)
                 GameOver();
 
 
@@ -64,7 +67,7 @@ namespace TwentyOne.Develop
 
             if (!_pass)
             {
-                Debug.Log("Passed");
+                Debug.Log($"{gameObject.name}: Passed");
                 _pass = true;
                 DealerWait = false;
                 GameOver();
@@ -75,14 +78,28 @@ namespace TwentyOne.Develop
         {
             if (DealerWait && !_pass)
             {
-                _score += _dealer.GetCard(gameObject, _position, _isBotControlled);
+                _cards.Add(_dealer.GetCard(gameObject, _position, _isBotControlled));
+                _score += _cards[_cards.Count - 1].Weight;
                 DealerWait = false;
                 _dealer.ChangeCounter(1);
-                Debug.Log($"{gameObject.name}: {_score}");
+                if(!_isBotControlled)
+                    Debug.Log($"{gameObject.name}: {_score}");
             }
 
             if (_pass)
                 PassAction();
+        }
+
+        public void RotateCards()
+        {
+            if (_isBotControlled)
+            {
+                foreach (var card in _cards)
+                {
+                    var transformComponent = card.Card.GetComponent<Transform>();
+                    transformComponent.Rotate(0, 180, 0);
+                }
+            }
         }
 
         private void GameOver()

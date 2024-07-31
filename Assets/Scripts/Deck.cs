@@ -26,7 +26,7 @@ namespace TwentyOne.Data.Card
             }   
         }
 
-        public int GetCard(Vector3 position, bool isBot)
+        public Card.CardInformation GetCard(Vector3 position, bool isBot)
         {
             var index = Random.Range(0, _cards.Count - 1);
 
@@ -37,8 +37,8 @@ namespace TwentyOne.Data.Card
             }
             else
             {
-                return 0;
                 Debug.Log("Deck is Empty.");
+                return default;
             }
             
         }

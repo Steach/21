@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TwentyOne.Data.Card;
 using UnityEngine;
@@ -8,17 +7,17 @@ namespace TwentyOne.Develop
 {
     public class Dealer : MonoBehaviour
     {
+        public System.Action DealerGameOverEvent;
+        public System.Action<string, int> DealerWinnerEvent;
         [SerializeField] private Deck _deck;
         [SerializeField] private Player[] _players;
         [SerializeField] private int _counter = 0;
         [SerializeField] private Vector3 _positionOffset;
-        private List<Player.GameOverInformation> _gameOverInformation = new List<Player.GameOverInformation>();
+        [SerializeField] private List<Player.GameOverInformation> _gameOverInformation = new List<Player.GameOverInformation>();
         private int _maxScore = 0;
         private string _winnerName;
         private bool _gameOver = false;
 
-        public System.Action GameOver;
-        //private float _timer = 0.5f;
 
         private void Awake()
         {
@@ -36,12 +35,10 @@ namespace TwentyOne.Develop
             if (_counter == _players.Length)
             {
                 ToldAboutWaiting();
-                //StartCoroutine(Timer());
             }
 
             if (_gameOverInformation.Count == _players.Length && !_gameOver)
             {
-
                 for (int i = 0; i < _gameOverInformation.Count; i++)
                 {
                     if (_gameOverInformation[i].Score > _maxScore && _gameOverInformation[i].Score <= 21)
@@ -49,20 +46,26 @@ namespace TwentyOne.Develop
                         _maxScore = _gameOverInformation[i].Score;
                         _winnerName = _gameOverInformation[i].Name;
                     }
+                    else if (_maxScore == 0)
+                    {
+                        _winnerName = "Nobody won";
+                    }
                 }
 
-                _gameOver = true;
-                GameOver?.Invoke();
-                Debug.Log($"{_winnerName} is winner: {_maxScore}");
+                foreach (var player in _players) 
+                    player.RotateCards();
 
+                _gameOver = true;
+                DealerGameOverEvent?.Invoke();
+                DealerWinnerEvent?.Invoke(_winnerName, _maxScore);
             }
         }
 
-        public int GetCard(GameObject player, Vector3 position, bool isBot)
+        public Card.CardInformation GetCard(GameObject player, Vector3 position, bool isBot)
         {
-            var score = _deck.GetCard(position, isBot);
+            var card = _deck.GetCard(position, isBot);
             ChangeCurrentPositionAtPlayerCards(position, _positionOffset, player.GetComponent<Player>());
-            return score;
+            return card;
         }
 
         public void ChangeCounter(int counter)
@@ -82,12 +85,6 @@ namespace TwentyOne.Develop
 
             _counter = 0;
         }
-
-        //private IEnumerator Timer()
-        //{
-        //    yield return new WaitForSeconds(_timer);
-        //    ToldAboutWaiting();
-        //}
 
         private void OnDestroy()
         {

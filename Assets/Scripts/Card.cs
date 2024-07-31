@@ -8,8 +8,9 @@ namespace TwentyOne.Data.Card
         [SerializeField] private GameObject _basicPrefab;
         [SerializeField] private Sprite _sprite;
         [SerializeField] private int _weight;
+        private CardInformation _cardInformation;
 
-        public int Init(Vector3 position, bool isBot)
+        public CardInformation Init(Vector3 position, bool isBot)
         {
             var rotation = Quaternion.identity;
 
@@ -18,11 +19,19 @@ namespace TwentyOne.Data.Card
                 rotation = new Quaternion(rotation.x, rotation.y + 180, rotation.z, rotation.w);
             }
 
-            var IntantiatedCard = Instantiate(_basicPrefab, position, rotation);
+            _cardInformation.Card = Instantiate(_basicPrefab, position, rotation);
+            _cardInformation.Weight = _weight;
 
-            IntantiatedCard.GetComponent<SpriteRenderer>().sprite = _sprite;
+            _cardInformation.Card.GetComponent<SpriteRenderer>().sprite = _sprite;
 
-            return _weight;
+            return _cardInformation;
+        }
+
+        [System.Serializable]
+        public struct CardInformation
+        {
+            public GameObject Card;
+            public int Weight;
         }
     }
 }
