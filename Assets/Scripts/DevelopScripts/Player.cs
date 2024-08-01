@@ -23,8 +23,11 @@ namespace TwentyOne.Develop
         public bool DealerWait = true;
         public Vector3 Position { get { return _position; } set { _position = value; } }
         public System.Action<GameOverInformation> GameOverEvent;
+        public System.Action<string, int> UpdatePlayerScoreEvent;
+        public System.Action PassEvent;
 
         private GameOverInformation _gameOverInformation;
+
         private bool _pass = false;
         private int _score = 0;
 
@@ -71,6 +74,8 @@ namespace TwentyOne.Develop
                 _pass = true;
                 DealerWait = false;
                 GameOver();
+                if (_isBotControlled)
+                    PassEvent?.Invoke();
             }
         }
 
@@ -83,7 +88,10 @@ namespace TwentyOne.Develop
                 DealerWait = false;
                 _dealer.ChangeCounter(1);
                 if(!_isBotControlled)
+                {
+                    UpdatePlayerScoreEvent?.Invoke(gameObject.name, _score);
                     Debug.Log($"{gameObject.name}: {_score}");
+                }
             }
 
             if (_pass)
@@ -100,6 +108,11 @@ namespace TwentyOne.Develop
                     transformComponent.Rotate(0, 180, 0);
                 }
             }
+        }
+
+        public GameOverInformation GetGameOverInformation() 
+        { 
+            return _gameOverInformation;
         }
 
         private void GameOver()
